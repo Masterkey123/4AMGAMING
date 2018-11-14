@@ -1,5 +1,3 @@
-# 4AMGAMING
-4AMGAMING
 gg.setVisible(false)
 gg.toast("__loading__…")
 gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS | gg.REGION_CODE_APP)
