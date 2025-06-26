@@ -1,1 +1,6 @@
 vpn://eyJjb25maWdfdmVyc2lvbiI6IDEuMCwgImFwaV9lbmRwb2ludCI6ICJodHRwczovLzk5LjgzLjIzNC4xMzcvYXBpL3YxL3JlcXVlc3QvYXdnLyIsICJwcm90b2NvbCI6ICJhd2ciLCAibmFtZSI6ICJBbW5lemlhIEZyZWUgTU0iLCAiZGVzY3JpcHRpb24iOiAiQW1uZXppYSBGcmVlIGZvciBNeWFubWFyIiwgImFwaV9rZXkiOiAiMDkxN295aHoualdJM0pvNFJTMEFaalJxTm9iOGJlOEhUNG53MVZIOTIifQ==
+
+
+
+
+vless://05c50793-f09e-4263-9932-d392b6583189@178.162.219.178:443?security=reality&sni=www.samsung.com&alpn=h2&fp=chrome&pbk=ckRcueERkPqqjZABwxqni_J_Nbb70Q6k5fEEUAjoImw&type=tcp&flow=xtls-rprx-vision&encryption=none#avovpn.com-967083-815873
