@@ -1,60 +1,237 @@
 <!DOCTYPE html>
-<html>
+<html lang="my">
 <head>
-  <title>AmpFix AI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AmpFix AI - Advanced Power Fault Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <style>
-    body { font-family: sans-serif; padding: 20px; background: #F0F4FF; }
-    input, select, textarea, button {
-      width: 100%; padding: 12px; margin: 10px 0;
-      border-radius: 10px; border: 1px solid #90CAF9;
+    :root {
+      --primary-color: #4A90E2;
+      --secondary-color: #50E3C2;
+      --background-color: #F0F4FF;
+      --card-background: #FFFFFF;
+      --text-color: #333;
+      --input-border: #D1D9E6;
+      --shadow-color: rgba(74, 144, 226, 0.2);
     }
-    button { background-color: #2196F3; color: white; font-size: 16px; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, var(--background-color), #E0E8FF);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background: var(--card-background);
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px var(--shadow-color);
+    }
+    h2 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 15px 15px 15px 45px;
+      border-radius: 10px;
+      border: 1px solid var(--input-border);
+      background-color: #F7F9FC;
+      font-size: 16px;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 5px var(--shadow-color);
+    }
+    select {
+      appearance: none;
+      background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23999%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E');
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: .65em auto;
+    }
+    textarea {
+      height: 80px;
+      resize: vertical;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(80, 227, 194, 0.4);
+    }
+    #result {
+      margin-top: 25px;
+      padding: 20px;
+      background: #F7F9FC;
+      border-left: 5px solid var(--primary-color);
+      border-radius: 10px;
+      display: none; /* Initially hidden */
+    }
+    #result h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+    #result p {
+      margin-bottom: 5px;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
-  <h2>AmpFix AI - Power Fault Analyzer</h2>
-  <input id="amp" placeholder="Amp တန်ဖိုး (ဥပမာ - 0.07)">
-  <select id="pattern">
-    <option>Stable</option>
-    <option>Fluctuating</option>
-    <option>Jump & Fall</option>
-    <option>Zero</option>
-    <option>High Spike</option>
-    <option>Slow Rise</option>
-  </select>
-  <select id="power">
-    <option>Power Key Not Pressed</option>
-    <option>Power Key Pressed</option>
-  </select>
-  <input id="max" placeholder="Boot ပြီးနောက် Max Amp">
-  <textarea id="note" placeholder="မှတ်ချက်များ"></textarea>
-  <button onclick="analyze()">စစ်ဆေးမည်</button>
-  <div id="result"></div>
+
+  <div class="container">
+    <h2><i class="fas fa-bolt"></i> AmpFix AI Analyzer</h2>
+
+    <div class="input-group">
+      <i class="fas fa-tachometer-alt"></i>
+      <input type="number" id="amp" step="0.01" placeholder="Power Key မနှိပ်ခင် Amp (ဥပမာ: 0.07)">
+    </div>
+    <div class="input-group">
+      <i class="fas fa-chart-line"></i>
+      <select id="pattern">
+        <option value="Stable">Stable - ငြိမ်နေသည်</option>
+        <option value="Fluctuating">Fluctuating - တက်လိုက်ကျလိုက်</option>
+        <option value="Jump & Fall">Jump & Fall - ဆောင့်တက်ပြီးပြန်ကျ</option>
+        <option value="Zero">Zero - သုည</option>
+        <option value="High Spike">High Spike - တစ်ခါတည်းဆောင့်တက်</option>
+        <option value="Slow Rise">Slow Rise - ဖြည်းဖြည်းချင်းတက်</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <i class="fas fa-power-off"></i>
+      <select id="power">
+        <option value="Not Pressed">Power Key မနှိပ်ရသေး</option>
+        <option value="Pressed">Power Key နှိပ်ပြီး</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <i class="fas fa-arrow-alt-circle-up"></i>
+      <input type="number" id="max" step="0.01" placeholder="Boot ပြီးနောက် Max Amp (ဥပမာ: 1.2)">
+    </div>
+    <div class="input-group">
+      <i class="fas fa-sticky-note"></i>
+      <textarea id="note" placeholder="ထပ်ဆောင်း မှတ်ချက်များ (ရေဝင်၊ အကျ)..."></textarea>
+    </div>
+
+    <button onclick="analyze()"><i class="fas fa-search"></i> စစ်ဆေးမည်</button>
+
+    <div id="result">
+      <h3><i class="fas fa-diagnoses"></i> ကနဦး စစ်ဆေးချက်</h3>
+      <div id="result-content"></div>
+    </div>
+  </div>
 
   <script>
     function analyze() {
+      // --- Input Gathering ---
       let amp = parseFloat(document.getElementById('amp').value);
       let pattern = document.getElementById('pattern').value;
       let powerPressed = document.getElementById('power').value.includes('Pressed');
-      let note = document.getElementById('note').value;
-      let result = "";
+      let maxAmp = parseFloat(document.getElementById('max').value);
+      let note = document.getElementById('note').value.trim();
+      let diagnosis = "";
 
-      if (isNaN(amp)) result = "ကျေးဇူးပြုပြီး amp တန်ဖိုး မှန်ကန်စွာ ထည့်ပါ။";
-      else if (amp === 0 && !powerPressed) result = "ပါဝါမဝင်ပါ။ ဘက်ထရီ သို့မဟုတ် power key ကိုစစ်ပါ။";
-      else if (amp < 0.04) result = "Amp နည်းနေသည်။ eMMC ပျက်နေခြင်း ဖြစ်နိုင်သည်။";
-      else if (amp >= 0.06 && amp <= 0.08 && pattern === 'Stable') result = "CPU သို့မဟုတ် eMMC မှာ မပြေလည်မှု ရှိနိုင်သည်။";
-      else if (amp > 0.12 && pattern === 'High Spike') result = "Baseband သို့မဟုတ် PMIC မှာ short ဖြစ်နိုင်သည်။";
-      else if (pattern === 'Fluctuating') result = "Amp မတည်မြဲပါ။ PMIC သို့မဟုတ် CPU error ဖြစ်နိုင်သည်။";
-      else result = "Pattern မမှန်ပါ။ ကိုယ်တိုင်စစ်ဆေးဖို့ လိုအပ်သည်။ " + note;
+      // --- Input Validation ---
+      if (isNaN(amp)) {
+        diagnosis = "ကျေးဇူးပြု၍ 'Power Key မနှိပ်ခင် Amp' တန်ဖိုးကို မှန်ကန်စွာ ထည့်သွင်းပါ။";
+        showResult(diagnosis);
+        return;
+      }
 
-      document.getElementById('result').innerHTML = '<p><b>ကိစ္စခန့်မှန်းချက်:</b><br>' + result + '</p>';
+      // --- Logic Engine ---
+      if (!powerPressed) { // Power Key မနှိပ်ခင် အခြေအနေများ
+        if (amp === 0) {
+          diagnosis = "<b>အဓိက ဖြစ်နိုင်ချေ:</b> Power မဝင်ပါ။<br><b>လုပ်ဆောင်ရန်:</b> ဘက်ထရီ၊ ကြိုး၊ အားသွင်းခေါင်း သို့မဟုတ် DC Power Supply ကိုစစ်ပါ။ Vbat လိုင်းပေါ်ရှိ component များကိုစစ်ဆေးပါ။";
+        } else if (amp > 0 && amp <= 0.03) {
+          diagnosis = "<b>အဓိက ဖြစ်နိုင်ချေ:</b> Secondary Power Line (LDO) တစ်ခုခု Short ကျနေသည်။<br><b>ဒုတိယ ဖြစ်နိုင်ချေ:</b> အားသွင်း IC (Charging IC) သို့မဟုတ် PMIC ပတ်ပတ်လည်တွင် short ဖြစ်နိုင်သည်။<br><b>လုပ်ဆောင်ရန်:</b> အပူစမ်းကြည့်ပါ သို့မဟုတ် Rosin တင်ပြီးစစ်ဆေးပါ။";
+        } else if (amp >= 0.04) {
+          diagnosis = "<b>အဓိက ဖြစ်နိုင်ချေ:</b> Primary Power Line (VPH_PWR/VBAT) Short ဖြစ်နေသည်။<br><b>ဒုတိယ ဖြစ်နိုင်ချေ:</b> PMIC, Power Amplifier (PA), Wifi IC တို့တွင် Short ဖြစ်နိုင်သည်။<br><b>လုပ်ဆောင်ရန်:</b> Rosin တင်ပြီး short ရှာပါ။ Board တစ်ခုလုံးကို သေချာစစ်ဆေးပါ။";
+        }
+      } else { // Power Key နှိပ်ပြီး အခြေအနေများ
+        if (pattern === 'Zero' || amp === 0) {
+          diagnosis = "<b>အဓိက ဖြစ်နိုင်ချေ:</b> Power Key အလုပ်မလုပ်ပါ သို့မဟုတ် Power Key လမ်းကြောင်းပြတ်နေသည်။<br><b>ဒုတိယ ဖြစ်နိုင်ချေ:</b> PMIC သို့မဟုတ် Crystal မကောင်းခြင်း။<br><b>လုပ်ဆောင်ရန်:</b> Power Key ကိုတိုင်းတာပါ၊ လမ်းကြောင်းစစ်ပါ။ PMIC သို့ supply ရောက်မရောက်စစ်ပါ။";
+        } else if (amp >= 0.02 && amp <= 0.05 && pattern === 'Jump & Fall') {
+          diagnosis = "<b>အဓိက ဖြစ်နိုင်ချေ:</b> eMMC/UFS မကောင်းခြင်း သို့မဟုတ် အဆက်အသွယ်မကောင်းခြင်း။<br><b>ဒုတိယ ဖြစ်နိုင်ချေ:</b> CPU မှ eMMC သို့သွားသော Data လမ်းကြောင်းများ ပြဿနာရှိနိုင်သည်။<br><b>လုပ်ဆောင်ရန်:</b> eMMC ကိုအပူပေး၊ မရလျှင်လှဲလှယ်စမ်းသပ်ပါ။";
+        } else if (amp >= 0.06 && amp <= 0.09 && pattern === 'Stable') {
+          diagnosis = "<b>အဓိက ဖြစ်နိုင်ချေ:</b> CPU Error သို့မဟုတ် RAM ပြဿနာ။<br><b>ဒုတိယ ဖြစ်နိုင်ချေ:</b> PMIC မှ CPU သို့ထွက်သော ဗို့အားများမမှန်ခြင်း။ Software Corrupted ဖြစ်ခြင်း။<br><b>လုပ်ဆောင်ရန်:</b> CPU ကို Reball/Reflow လုပ်ကြည့်ပါ။ PMIC မှထွက်သော Buck ဗို့အားများကို တိုင်းတာပါ။";
+        } else if (pattern === 'Fluctuating') {
+          diagnosis = "<b>အဓိက ဖြစ်နိုင်ချေ:</b> Software ပိုင်းဆိုင်ရာ ပြဿနာ သို့မဟုတ် Bootloader Error.<br><b>ဒုတိယ ဖြစ်နိုင်ချေ:</b> PMIC အလုပ်လုပ်ပုံမမှန်ခြင်း။<br><b>လုပ်ဆောင်ရန်:</b> Firmware အသစ်ရေးကြည့်ပါ။ PMIC ကို အပူပေးစမ်းသပ်ပါ။";
+        } else if (amp > 0.1 && pattern === 'High Spike') {
+          diagnosis = "<b>အဓိက ဖြစ်နိုင်ချေ:</b> CPU Core Voltage Short ဖြစ်နေသည်။<br><b>ဒုတိယ ဖြစ်နိုင်ချေ:</b> RAM သို့မဟုတ် အခြားသော Main IC တစ်ခုခုတွင် Short ဖြစ်နေခြင်း။<br><b>လုပ်ဆောင်ရန်:</b> CPU ပတ်လည်ရှိ Capacitor များကိုစစ်ဆေးပါ။ CPU ကို ခွာပြီး short ရှိမရှိစစ်ပါ။";
+        } else if (!isNaN(maxAmp)) {
+          if (maxAmp > 0 && maxAmp < 0.3) {
+            diagnosis = "<b>အဓိက ဖြစ်နိုင်ချေ:</b> Boot Logo မှာရပ်နေခြင်း (Logo Stuck)။ eMMC/UFS Read/Write Error ဖြစ်နိုင်သည်။<br><b>ဒုတိယ ဖြစ်နိုင်ချေ:</b> Software ပြဿနာ။<br><b>လုပ်ဆောင်ရန်:</b> Firmware ရေးကြည့်ပါ။ eMMC Health စစ်ဆေးပါ။";
+          } else {
+            diagnosis = "Boot တက်သော်လည်း ပြဿနာဆက်ရှိနေသည်။ Max Amp တန်ဖိုးသည် ပုံမှန်အခြေအနေနှင့် နီးစပ်နေသည်။ Display IC, Touch IC သို့မဟုတ် အခြားသော Peripheral အပိုင်းများကို စစ်ဆေးရန်လိုအပ်သည်။";
+          }
+        } else {
+          diagnosis = "ပေးထားသော အချက်အလက်များနှင့် တိုက်ဆိုင်သည့် ပုံစံမတွေ့ပါ။ ကျေးဇူးပြု၍ အချက်အလက်များ ပြန်လည်စစ်ဆေးပြီး ကိုယ်တိုင်တိုင်းတာစစ်ဆေးရန် လိုအပ်ပါသည်။";
+        }
+      }
 
-      // Voice output in Burmese
-      const msg = new SpeechSynthesisUtterance(result);
-      msg.lang = 'my-MM'; // Try Burmese voice
+      // Append user note if exists
+      if (note) {
+        diagnosis += "<br><br><b>သင်၏မှတ်ချက်:</b> " + note;
+      }
+
+      showResult(diagnosis);
+    }
+
+    function showResult(content) {
+      const resultDiv = document.getElementById('result');
+      const resultContentDiv = document.getElementById('result-content');
+      
+      resultContentDiv.innerHTML = '<p>' + content + '</p>';
+      resultDiv.style.display = 'block';
+
+      // --- Voice Output ---
+      // Remove HTML tags for cleaner speech
+      const textToSpeak = content.replace(/<[^>]*>/g, ' '); 
+      const msg = new SpeechSynthesisUtterance(textToSpeak);
+      msg.lang = 'my-MM'; // Burmese (Myanmar)
       msg.rate = 0.9;
+      speechSynthesis.cancel(); // Cancel previous speech
       speechSynthesis.speak(msg);
     }
   </script>
 </body>
 </html>
+
