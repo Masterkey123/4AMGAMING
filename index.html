@@ -13,7 +13,7 @@
 </head>
 <body>
   <h2>AmpFix AI - Power Fault Analyzer</h2>
-  <input id="amp" placeholder="Amp Reading (e.g. 0.07)">
+  <input id="amp" placeholder="Amp တန်ဖိုး (ဥပမာ - 0.07)">
   <select id="pattern">
     <option>Stable</option>
     <option>Fluctuating</option>
@@ -26,9 +26,9 @@
     <option>Power Key Not Pressed</option>
     <option>Power Key Pressed</option>
   </select>
-  <input id="max" placeholder="Max Amp After Boot">
-  <textarea id="note" placeholder="Notes / Timeline"></textarea>
-  <button onclick="analyze()">Analyze</button>
+  <input id="max" placeholder="Boot ပြီးနောက် Max Amp">
+  <textarea id="note" placeholder="မှတ်ချက်များ"></textarea>
+  <button onclick="analyze()">စစ်ဆေးမည်</button>
   <div id="result"></div>
 
   <script>
@@ -37,9 +37,24 @@
       let pattern = document.getElementById('pattern').value;
       let powerPressed = document.getElementById('power').value.includes('Pressed');
       let note = document.getElementById('note').value;
-      let result = \"\";
+      let result = "";
 
-      if (isNaN(amp)) result = \"Please enter valid amp value\";
-      else if (amp === 0 && !powerPressed) result = \"No power input. Check battery/power button\";
-      else if (amp < 0.04) result = \"Low amp. Likely eMMC dead or missing pull-up\";
-      else if (amp >= 0.
+      if (isNaN(amp)) result = "ကျေးဇူးပြုပြီး amp တန်ဖိုး မှန်ကန်စွာ ထည့်ပါ။";
+      else if (amp === 0 && !powerPressed) result = "ပါဝါမဝင်ပါ။ ဘက်ထရီ သို့မဟုတ် power key ကိုစစ်ပါ။";
+      else if (amp < 0.04) result = "Amp နည်းနေသည်။ eMMC ပျက်နေခြင်း ဖြစ်နိုင်သည်။";
+      else if (amp >= 0.06 && amp <= 0.08 && pattern === 'Stable') result = "CPU သို့မဟုတ် eMMC မှာ မပြေလည်မှု ရှိနိုင်သည်။";
+      else if (amp > 0.12 && pattern === 'High Spike') result = "Baseband သို့မဟုတ် PMIC မှာ short ဖြစ်နိုင်သည်။";
+      else if (pattern === 'Fluctuating') result = "Amp မတည်မြဲပါ။ PMIC သို့မဟုတ် CPU error ဖြစ်နိုင်သည်။";
+      else result = "Pattern မမှန်ပါ။ ကိုယ်တိုင်စစ်ဆေးဖို့ လိုအပ်သည်။ " + note;
+
+      document.getElementById('result').innerHTML = '<p><b>ကိစ္စခန့်မှန်းချက်:</b><br>' + result + '</p>';
+
+      // Voice output in Burmese
+      const msg = new SpeechSynthesisUtterance(result);
+      msg.lang = 'my-MM'; // Try Burmese voice
+      msg.rate = 0.9;
+      speechSynthesis.speak(msg);
+    }
+  </script>
+</body>
+</html>
