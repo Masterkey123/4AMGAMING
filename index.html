@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AmpFix AI</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #F0F4FF; }
+    input, select, textarea, button {
+      width: 100%; padding: 12px; margin: 10px 0;
+      border-radius: 10px; border: 1px solid #90CAF9;
+    }
+    button { background-color: #2196F3; color: white; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h2>AmpFix AI - Power Fault Analyzer</h2>
+  <input id="amp" placeholder="Amp Reading (e.g. 0.07)">
+  <select id="pattern">
+    <option>Stable</option>
+    <option>Fluctuating</option>
+    <option>Jump & Fall</option>
+    <option>Zero</option>
+    <option>High Spike</option>
+    <option>Slow Rise</option>
+  </select>
+  <select id="power">
+    <option>Power Key Not Pressed</option>
+    <option>Power Key Pressed</option>
+  </select>
+  <input id="max" placeholder="Max Amp After Boot">
+  <textarea id="note" placeholder="Notes / Timeline"></textarea>
+  <button onclick="analyze()">Analyze</button>
+  <div id="result"></div>
+
+  <script>
+    function analyze() {
+      let amp = parseFloat(document.getElementById('amp').value);
+      let pattern = document.getElementById('pattern').value;
+      let powerPressed = document.getElementById('power').value.includes('Pressed');
+      let note = document.getElementById('note').value;
+      let result = \"\";
+
+      if (isNaN(amp)) result = \"Please enter valid amp value\";
+      else if (amp === 0 && !powerPressed) result = \"No power input. Check battery/power button\";
+      else if (amp < 0.04) result = \"Low amp. Likely eMMC dead or missing pull-up\";
+      else if (amp >= 0.
