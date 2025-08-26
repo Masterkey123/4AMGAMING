@@ -1,10 +1,1 @@
-vless://05c50793-f09e-4263-9932-d392b6583189@178.162.219.178:443?security=reality&sni=www.samsung.com&alpn=h2&fp=chrome&pbk=ckRcueERkPqqjZABwxqni_J_Nbb70Q6k5fEEUAjoImw&type=tcp&flow=xtls-rprx-vision&encryption=none#avovpn.com-967083-815873
-
-
-
-vpn://eyJjb25maWdfdmVyc2lvbiI6IDEuMCwgImFwaV9lbmRwb2ludCI6ICJodHRwczovLzMuMzMuMTUyLjE3NS9hcGkvdjEvcmVxdWVzdC9hd2cvIiwgInByb3RvY29sIjogImF3ZyIsICJuYW1lIjogIkFtbmV6aWEgRnJlZSBLRyIsICJkZXNjcmlwdGlvbiI6ICJBbW5lemlhIEZyZWUgZm9yIEt5cmd5enN0YW4iLCAiYXBpX2tleSI6ICI0Rm0xbFBSbi5TT1l2bnI2aTRlbHlvOFM5NERjWXplczVhdXJ4RGpYMSJ9
-
-
-
-
-ss://YWVzLTI1Ni1nY206STJ4eHB0b3N1dUBkMTUucGVuY2lsYm94Lm9ubGluZTozNDQ4NA#KTO
+ss://YWVzLTI1Ni1nY206dE1JRlV6cURJdEBkMjAucGVuY2lsYm94Lm9ubGluZTo1Nzg1MQ#KTO26%2F9
