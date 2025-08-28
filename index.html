@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>တွက်ချက်စက်</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>ဂဏန်းတွက်စက်</h2>
+    <input type="number" id="inputNumber" placeholder="ဂဏန်းထည့်ပါ">
+    <button onclick="calculate()">တွက်ချက်မည်</button>
+    <p>ရလဒ်: <span id="result"></span></p>
+</div>
+
+<script>
+    function calculate() {
+        const number = document.getElementById('inputNumber').value;
+        const resultElement = document.getElementById('result');
+
+        if (number === "" || isNaN(number)) {
+            resultElement.textContent = "မှန်ကန်သော ဂဏန်းကို ထည့်ပါ";
+            return;
+        }
+
+        // ဒီနေရာမှာ ကိုယ်လိုချင်တဲ့ တွက်ချက်နည်းကို ရေးနိုင်ပါတယ်။ ဥပမာ: ဂဏန်းကို ၂ နဲ့ မြှောက်မယ်။
+        const result = number * 2;
+        resultElement.textContent = result;
+    }
+</script>
+
+</body>
+</html>
